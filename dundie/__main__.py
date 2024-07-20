@@ -1,2 +1,5 @@
-print("Executing entry point for dundie...")
+def main():
+    print("Excecuting dundie from entry point.")
+
+
 
