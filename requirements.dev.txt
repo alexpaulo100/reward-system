@@ -1,3 +1,5 @@
 ipython
 ipdb
 pudb
+pytest-watch
+
