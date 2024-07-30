@@ -1,5 +1,5 @@
 import os
-from setuptools import setup, find_packages # type: ignore
+from setuptools import setup, find_packages 
 
 def read(*paths):
     """Read the contents of a text file safely.

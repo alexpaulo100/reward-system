@@ -1,0 +1,6 @@
+{
+    "python.linting.flacke8Enabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.privder": "black",
+    "python.linting.flake8Path": "pflake8"
+}
