@@ -9,5 +9,5 @@ from .constants import PEOPLE_FILE
 @pytest.mark.high
 def test_load():
     """Test load function."""
-    assert len(load(PEOPLE_FILE)) == 2
+    assert len(load(PEOPLE_FILE)) == 3
     assert load(PEOPLE_FILE)[0][0] == "J"
