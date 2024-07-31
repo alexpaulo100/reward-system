@@ -1,5 +1,6 @@
 import os
-from setuptools import setup, find_packages 
+from setuptools import setup, find_packages
+
 
 def read(*paths):
     """Read the contents of a text file safely.
@@ -11,15 +12,16 @@ def read(*paths):
     filepath = os.path.join(rootpath, *paths)
     with open(filepath) as file_:
         return file_.read().strip()
-    
+
 
 def read_requirements(path):
     """Return a list of requiriments from a text file"""
     return [
         line.strip()
         for line in read(path).split("\n")
-        if not line.startswith(("#","git+",'"','-'))
+        if not line.startswith(("#", "git+", '"', '-'))
     ]
+
 
 setup(
     name="dundie",
@@ -37,7 +39,7 @@ setup(
     },
     install_requires=read_requirements("requirements.txt"),
     extras_require={
-        "test":read_requirements("requirements.test.txt"),
+        "test": read_requirements("requirements.test.txt"),
         "dev": read_requirements("requirements.dev.txt")
     }
 )
