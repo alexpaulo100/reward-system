@@ -37,7 +37,7 @@ def load(filepath):
 
     result = core.load(filepath)
     for person in result:
-        table.add_row(*[field.strip() for field in person.split(",")])
+        table.add_row(*[str(value) for value in person.values(",")])
 
     console = Console()
     console.print(table)

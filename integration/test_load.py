@@ -12,7 +12,8 @@ cmd = CliRunner()
 @pytest.mark.medium
 def test_load_positive_call_load_command():
     """test command load"""
-    out = cmd.invoke(load, "./tests/assets/people.csv")
+    out = cmd.invoke(load, "/tests/assets/people.csv")
+
     assert "Dunder Mifflin Associates" in out.output
 
 
