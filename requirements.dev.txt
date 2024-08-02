@@ -6,3 +6,15 @@ pytest-watch
 flake8
 pyproject-flake8
 black
+
+# docs
+mkdocs
+
+# build
+wheel
+
+# install project as editable
+-e .
+
+
+

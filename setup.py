@@ -31,7 +31,8 @@ setup(
     long_description_content_type="text/markdown",
     author="Alex Silva",
     python_requires=">=3.9",
-    packages=find_packages(),
+    packages=find_packages(exclude=["integration"]),
+    include_package_data=True,
     entry_points={
         "console_scripts": [
             "dundie = dundie.__main__:main"

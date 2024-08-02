@@ -11,3 +11,28 @@ O funcionário pode uma vez a cada ano resgatar seus pontos em um cartão de cr�
 Acordamos em contrato que o MVP (Minimum Viable Product) será uma versão para ser executada no terminal e que no futuro terá também as interfaces UI, web e API.
 
 Os dados dos funcionários atuais serão fornecidos em um arquivo que pode ser no formato .csv ou .json e este mesmo arquivo poderá ser usado para versões futuras. Nome, Depto, Cargo, Email.
+
+
+## Installation
+
+
+```py
+pip install yourname-dundie
+```
+
+
+
+```py
+pip install -e '.[dev]'
+```
+
+
+## Usage
+
+
+```py
+dundie load assets/people.csv
+```
+
+
+
