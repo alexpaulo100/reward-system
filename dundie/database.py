@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+
 from dundie.settings import DATABASE_PATH, EMAIL_FROM
 from dundie.utils.email import check_valid_email, send_email
 from dundie.utils.user import generate_simple_password
@@ -36,7 +37,7 @@ def add_person(db, pk, data):
         raise ValueError(f"{pk} is not a valid email")
 
     table = db["people"]
-    person = table.get(pk, ())
+    person = table.get(pk, {})
     created = not bool(person)
     person.update(data)
     table[pk] = person
