@@ -1,4 +1,7 @@
-Jim Halpert, Sales, Salesman, jim@dundlermifflin.com
-Dwight Schrute, Sales, Manager, schurute@dundlermifflin.com
-Gabe Lewis, Directory, Manager, glewis@dundlermifflin.com
+name,dept,role,email,currency
+Jim Halpert, Sales, Salesman, jim@dundlermifflin.com, USD
+Dwight Schrute, Sales, Manager, schurute@dundlermifflin.com, EUR
+Gabe Lewis, Directory, CEO, glewis@dundlermifflin.com, BRL
+Pam Beasly, General, Receptionist, pam@dundlermifflin.com, BRL
+Metusalem, Security, Guard, metusalem@dundlermifflin.com, BRL
 

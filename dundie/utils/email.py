@@ -32,3 +32,4 @@ def send_email(from_: str, to: List[str], subject: str, text: str):
             server.sendmail(from_, to, message.as_string())
     except Exception:
         log.error("Cannot send email to %s", to)
+        
