@@ -11,6 +11,7 @@ class USDRate(BaseModel):
     name: str = Field(default="Dolar/Dolar")
     value: Decimal = Field(alias="high")
 
+
 def get_rates(currencies: List[str]) -> Dict[str, USDRate]:
     """Gets current rate for USD vs Currency"""
     return_data = {}

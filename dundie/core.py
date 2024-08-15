@@ -14,6 +14,7 @@ log = get_logger()
 Query = Dict[str, Any]
 ResultDict = List[Dict[str, Any]]
 
+
 def load(filepath: str) -> ResultDict:
     """Loads data from filepath to the database.
     >>> len(load('assets/people.csv'))
@@ -26,29 +27,35 @@ def load(filepath: str) -> ResultDict:
     headers = ["name", "dept", "role", "email", "currency"]
 
     try:
-        with open(filepath, newline='') as csvfile:
+        with open(filepath, newline="") as csvfile:
             csv_data = reader(csvfile)
             header_row = next(csv_data)  # Read the header row
             header_map = dict(zip(header_row, headers))  # Map the header names
 
             with get_session() as session:
                 for line in csv_data:
-                    person_data = dict(zip(header_row, [item.strip() for item in line]))
+                    person_data = dict(
+                        zip(header_row, [item.strip() for item in line])
+                    )
 
                     # Ensure the email column is properly named and present
-                    if not person_data.get(header_map.get('email')):
-                        log.warning(f"Skipping line with missing or invalid email: {person_data}")
+                    if not person_data.get(header_map.get("email")):
+                        log.warning(
+                            f"Skipping line with missing or invalid email: {person_data}"
+                        )
                         continue
 
                     # Validate and process the data
                     try:
                         # Convert CSV data to Person instance
                         mapped_person_data = {
-                            "email": person_data.get(header_map['email']),
-                            "name": person_data.get(header_map['name']),
-                            "dept": person_data.get(header_map['dept']),
-                            "role": person_data.get(header_map['role']),
-                            "currency": person_data.get(header_map['currency'], "USD")
+                            "email": person_data.get(header_map["email"]),
+                            "name": person_data.get(header_map["name"]),
+                            "dept": person_data.get(header_map["dept"]),
+                            "role": person_data.get(header_map["role"]),
+                            "currency": person_data.get(
+                                header_map["currency"], "USD"
+                            ),
                         }
                         instance = Person(**mapped_person_data)
                         person, created = add_person(session, instance)
@@ -56,7 +63,9 @@ def load(filepath: str) -> ResultDict:
                         return_data["created"] = created
                         people.append(return_data)
                     except Exception as e:
-                        log.error(f"Error processing record {person_data}: {e}")
+                        log.error(
+                            f"Error processing record {person_data}: {e}"
+                        )
                         continue
 
                 session.commit()
@@ -66,6 +75,7 @@ def load(filepath: str) -> ResultDict:
         raise e
 
     return people
+
 
 def read(**query: Query) -> ResultDict:
     """Read data from db and filters using query
@@ -90,10 +100,18 @@ def read(**query: Query) -> ResultDict:
         rates = get_rates(currencies)
         results = session.exec(sql)
         for person in results:
-            # Assumindo que `balance` é um único objeto e `movement` é uma lista de objetos
-            balance_value = person.balance.value if person.balance else 0  # Acessar diretamente o atributo
-            movements = session.exec(select(Movement).where(Movement.person_id == person.id).order_by(Movement.date.desc())).all()
-            last_movement_date = movements[0].date.strftime(DATEFMT) if movements else None
+
+            balance_value = (
+                person.balance.value if person.balance else 0
+            )  # Acessar diretamente o atributo
+            movements = session.exec(
+                select(Movement)
+                .where(Movement.person_id == person.id)
+                .order_by(Movement.date.desc())
+            ).all()
+            last_movement_date = (
+                movements[0].date.strftime(DATEFMT) if movements else None
+            )
             total = rates[person.currency].value * balance_value
             return_data.append(
                 {
@@ -107,13 +125,11 @@ def read(**query: Query) -> ResultDict:
 
     return return_data
 
+
 def add_movement(session, person, value, actor):
     """Add a movement entry for the specified person."""
     movement = Movement(
-        person_id=person.id,
-        value=value,
-        actor=actor,
-        date=datetime.now()
+        person_id=person.id, value=value, actor=actor, date=datetime.now()
     )
     session.add(movement)
 
@@ -132,13 +148,13 @@ def add(value: int, **query: Query):
             instance = session.exec(
                 select(Person).where(Person.email == person["email"])
             ).first()
-            
+
             if instance:  # Verificar se a instância foi encontrada
                 # Encontre o saldo atual
                 balance = session.exec(
                     select(Balance).where(Balance.person_id == instance.id)
                 ).first()
-                
+
                 if balance:
                     # Atualize o saldo
                     balance.value += value
@@ -146,13 +162,13 @@ def add(value: int, **query: Query):
                     # Se não houver saldo, crie um novo
                     balance = Balance(person_id=instance.id, value=value)
                     session.add(balance)
-                
+
                 # Crie um novo movimento
                 movement = Movement(
                     person_id=instance.id,
                     actor="system",  # Defina um valor padrão para o ator, se necessário
                     value=value,
-                    date=datetime.now()
+                    date=datetime.now(),
                 )
                 session.add(movement)
 

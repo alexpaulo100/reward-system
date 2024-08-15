@@ -55,7 +55,6 @@ class Balance(SQLModel, table=True):
         json_encoders = {Person: lambda p: p.pk}
 
 
-
 class Movement(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True, index=True)
     person_id: int = Field(foreign_key="person.id")
@@ -67,7 +66,6 @@ class Movement(SQLModel, table=True):
 
     class Config:
         json_encoders = {Person: lambda p: p.pk}
-
 
 
 class User(SQLModel, table=True):

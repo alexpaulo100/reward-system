@@ -5,9 +5,10 @@ SMTP_PORT = 8025
 SMTP_TIMEOUT = 5
 
 DATEFMT: str = "%d/%m/%Y %H:%M:%S"
-API_BASE_URL: str = ("https://economia.awesomeapi.com.br/json/last/USD-{currency}")
+API_BASE_URL: str = (
+    "https://economia.awesomeapi.com.br/json/last/USD-{currency}"
+)
 
-#https://economia.awesomeapi.com.br/json/last/:moedas
 EMAIL_FROM = "master@dundie.com"
 ROOT_PATH = os.path.dirname(__file__)
 DATABASE_PATH = os.path.join(ROOT_PATH, "..", "assets", "database.db")

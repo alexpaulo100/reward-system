@@ -28,11 +28,11 @@ def main():
     """
     pass
 
+
 @main.command()
 @click.argument("filepath", type=click.Path(exists=True))
 def load(filepath):
-    """Loads the file to the database.
-    """
+    """Loads the file to the database."""
     table = Table(title="Dunder Mifflin Associates")
     headers = ["email", "name", "dept", "role", "currency", "created"]
     for header in headers:
@@ -45,7 +45,7 @@ def load(filepath):
     except Exception as e:
         print(f"Error loading data: {e}")
         return
-    
+
     console = Console()
     console.print(table)
 
@@ -61,7 +61,7 @@ def show(output, **query):
     except Exception as e:
         print(f"Error fetchin data: {e}")
         return
-        
+
     if not result:
         print("Nothing to show")
         return
@@ -81,7 +81,9 @@ def show(output, **query):
 
     console = Console()
     console.print(table)
-#aqui
+
+
+# aqui
 
 
 @main.command()
@@ -96,6 +98,7 @@ def add(ctx, value, **query):
         ctx.invoke(show, **query)
     except Exception as e:
         print(f"Error adding points: {e}")
+
 
 @main.command()
 @click.argument("value", type=click.INT, required=True)
